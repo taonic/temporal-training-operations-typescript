@@ -5,25 +5,24 @@ This is a TypeScript port of the Java Worker Tuning example, demonstrating vario
 ## Prerequisites
 
 * Node.js 18 or later
-* Install Grafana: https://grafana.com/docs/grafana/latest/setup-grafana/installation/
-* Install Prometheus: https://prometheus.io/docs/prometheus/latest/installation/
-* Reduce Grafana and Prometheus's default refresh and scrapping intervals to receive instantaneous feedback.
-  * Update the Grafana config (grafana.ini > [dashboards]) to include `min_refresh_interval = 200ms`
-  * Update Prometheus' config according to this [sample](../workerTuning/config/prometheus.yml)
-    * Make sure `scrape_interval` and `evaluation_interval` are both set at 1s
-* Import the [sample SDK Metrics dashboard](./dashboard/sdk_metrics.json) to Grafana.
+* Docker and Docker Compose
 
 ## Setup
 
-1. Install dependencies:
+1. Start Grafana and Prometheus:
+```bash
+docker compose up -d
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Build the project:
-```bash
-npm run build
-```
+3. Access monitoring:
+   - Grafana: http://localhost:3001 (dashboard auto-loaded)
+   - Prometheus: http://localhost:9090
+   - Worker metrics: http://localhost:8077/metrics
 
 ## Example setup
 
@@ -32,18 +31,27 @@ The sample code runs 100 Workflows asynchronously with each scheduling 10 Activi
 ## Run example
 
 ### Local Temporal Server
+
+1. Start the worker:
 ```bash
-npm start -- --activity-pollers=5 --activity-slots=200
+npm run worker -- --activity-pollers=5 --activity-slots=200
+```
+
+2. In a separate terminal, start workflows:
+```bash
+npm start -- --workflows=100 --activities-per-workflow=10
 ```
 
 ### Temporal Cloud
+
+1. Start the worker:
 ```bash
 export TEMPORAL_CLIENT_CERT="<path_to_client_cert>"
 export TEMPORAL_CLIENT_KEY="<path_to_client_key>"
 export TEMPORAL_ENDPOINT="<cloud_host_and_port>"
 export TEMPORAL_NAMESPACE="<temporal_namespace>"
 
-npm start -- \
+npm run worker -- \
   --client-cert-path="$TEMPORAL_CLIENT_CERT" \
   --client-key-path="$TEMPORAL_CLIENT_KEY" \
   --temporal-endpoint="$TEMPORAL_ENDPOINT" \
@@ -52,36 +60,56 @@ npm start -- \
   --activity-slots=200
 ```
 
+2. In a separate terminal, start workflows:
+```bash
+npm start -- \
+  --workflows=100 \
+  --activities-per-workflow=10 \
+  --client-cert-path="$TEMPORAL_CLIENT_CERT" \
+  --client-key-path="$TEMPORAL_CLIENT_KEY" \
+  --temporal-endpoint="$TEMPORAL_ENDPOINT" \
+  --temporal-namespace="$TEMPORAL_NAMESPACE"
+```
+
 ## Tuning steps
 
 ### Run #1: Baseline (5 pollers, 200 slots)
 ```bash
-npm start -- --activity-pollers=5 --activity-slots=200
+npm run worker -- --activity-pollers=5 --activity-slots=200
 ```
 
 ### Run #2: Increase slots (5 pollers, 800 slots)
 ```bash
-npm start -- --activity-pollers=5 --activity-slots=800
+npm run worker -- --activity-pollers=5 --activity-slots=800
 ```
 
 ### Run #3: Increase pollers (80 pollers, 800 slots)
 ```bash
-npm start -- --activity-pollers=80 --activity-slots=800
+npm run worker -- --activity-pollers=80 --activity-slots=800
 ```
 
 ### Run #4: Optimal settings (80 pollers, 1600 slots)
 ```bash
-npm start -- --activity-pollers=80 --activity-slots=1600
+npm run worker -- --activity-pollers=80 --activity-slots=1600
 ```
 
 ## Available Options
 
+### Worker Options
 - `--activity-pollers`: Number of Activity pollers (default: 5)
 - `--activity-slots`: Number of Activity execution slots (default: 200)
+- `--task-queue`: Task queue name (default: worker-tuning)
+- `--temporal-namespace`: Temporal namespace (default: default)
+- `--temporal-endpoint`: Temporal endpoint (default: localhost:7233)
+- `--client-key-path`: mTLS client key path
+- `--client-cert-path`: mTLS client certificate path
+
+### Starter Options
 - `--workflows`: Number of concurrent Workflows (default: 100)
 - `--activities-per-workflow`: Number of Activities per Workflow (default: 10)
-- `--temporal-namespace`: Temporal namespace to connect to
-- `--temporal-endpoint`: Temporal endpoint to connect to
+- `--task-queue`: Task queue name (default: worker-tuning)
+- `--temporal-namespace`: Temporal namespace (default: default)
+- `--temporal-endpoint`: Temporal endpoint (default: localhost:7233)
 - `--client-key-path`: mTLS client key path
 - `--client-cert-path`: mTLS client certificate path
 - `--failure-ratio`: Ratio for forced Workflow Task failures (0-100, default: 0)
@@ -89,3 +117,10 @@ npm start -- --activity-pollers=80 --activity-slots=1600
 ## Metrics
 
 The application exposes Prometheus metrics on port 8077 at `/metrics` endpoint. Use the provided Grafana dashboard to visualize worker performance metrics.
+
+## Cleanup
+
+Stop Grafana and Prometheus:
+```bash
+docker compose down
+```

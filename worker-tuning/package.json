@@ -5,8 +5,8 @@
   "main": "lib/starter.js",
   "scripts": {
     "build": "tsc",
-    "start": "node lib/starter.js",
-    "dev": "ts-node src/starter.ts"
+    "start": "npx ts-node src/starter.ts",
+    "worker": "npx ts-node src/worker.ts"
   },
   "dependencies": {
     "@temporalio/client": "^1.8.0",

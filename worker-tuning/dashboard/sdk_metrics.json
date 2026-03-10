@@ -81,7 +81,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -161,11 +161,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum by(le, task_queue) (rate(temporal_workflow_task_schedule_to_start_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.95, sum by(le, task_queue) (rate(temporal_workflow_task_schedule_to_start_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -176,13 +176,13 @@
           "useBackend": false
         }
       ],
-      "title": "Workflow Task Schedule To Start Latency - temporal_workflow_task_schedule_to_start_latency_seconds_bucket",
+      "title": "Workflow Task Schedule To Start Latency - temporal_workflow_task_schedule_to_start_latency_bucket",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -267,11 +267,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum by(le, task_queue) (rate(temporal_activity_schedule_to_start_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.95, sum by(le, task_queue) (rate(temporal_activity_schedule_to_start_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -282,13 +282,13 @@
           "useBackend": false
         }
       ],
-      "title": "Activity Schedule To Start Latency P99 - temporal_activity_schedule_to_start_latency_seconds_bucket",
+      "title": "Activity Schedule To Start Latency P99 - temporal_activity_schedule_to_start_latency_bucket",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -371,11 +371,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_workflow_endtoend_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_workflow_endtoend_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -386,13 +386,13 @@
           "useBackend": false
         }
       ],
-      "title": "Workflow End to End Latency P99 - temporal_workflow_endtoend_latency_seconds_bucket",
+      "title": "Workflow End to End Latency P99 - temporal_workflow_endtoend_latency_bucket",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -462,10 +462,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
-          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_workflow_endtoend_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_workflow_endtoend_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "instant": false,
           "interval": "1s",
           "legendFormat": "{{task_queue}}",
@@ -473,13 +473,13 @@
           "refId": "A"
         }
       ],
-      "title": "Workflow End to End Latency (Max) - temporal_workflow_endtoend_latency_seconds_bucket",
+      "title": "Workflow End to End Latency (Max) - temporal_workflow_endtoend_latency_bucket",
       "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -562,23 +562,23 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
-          "expr": "histogram_quantile(0.9, sum by(le, task_queue) (rate(temporal_workflow_task_execution_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.9, sum by(le, task_queue) (rate(temporal_workflow_task_execution_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "instant": false,
           "interval": "1s",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Workflow Task Execution Latency - temporal_workflow_task_execution_latency_seconds_bucket",
+      "title": "Workflow Task Execution Latency - temporal_workflow_task_execution_latency_bucket",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -660,23 +660,23 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
-          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_activity_execution_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_activity_execution_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "instant": false,
           "interval": "1s",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Activity Execution Latency P99 - temporal_activity_execution_latency_seconds_bucket",
+      "title": "Activity Execution Latency P99 - temporal_activity_execution_latency_bucket",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -758,23 +758,23 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
-          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_activity_succeed_endtoend_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_activity_succeed_endtoend_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "instant": false,
           "interval": "1s",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Activity End to End Latency P99 - temporal_activity_endtoend_latency_seconds_bucket",
+      "title": "Activity End to End Latency P99 - temporal_activity_succeed_endtoend_latency_bucket",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -839,10 +839,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
-          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_activity_succeed_endtoend_latency_seconds_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, task_queue) (rate(temporal_activity_succeed_endtoend_latency_bucket{task_queue=~\"$Taskqueue\"}[$__rate_interval]))) / 1000",
           "instant": false,
           "interval": "1s",
           "legendFormat": "{{task_queue}}",
@@ -850,7 +850,7 @@
           "refId": "A"
         }
       ],
-      "title": "Activity End to End Latency (Max) - temporal_activity_endtoend_latency_seconds_bucket",
+      "title": "Activity End to End Latency (Max) - temporal_activity_succeed_endtoend_latency_bucket",
       "type": "stat"
     },
     {
@@ -869,7 +869,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -947,7 +947,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(task_queue) (temporal_worker_task_slots_available{worker_type=\"WorkflowWorker\"})",
@@ -963,7 +963,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "description": "",
       "fieldConfig": {
@@ -1045,7 +1045,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(task_queue) (temporal_worker_task_slots_available{worker_type=\"ActivityWorker\"})",
@@ -1061,7 +1061,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1143,7 +1143,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "process_cpu_usage",
@@ -1159,7 +1159,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1209,7 +1209,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(worker_type) (temporal_worker_task_slots_available{worker_type=\"WorkflowWorker\"})",
@@ -1225,7 +1225,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1275,7 +1275,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(worker_type) (temporal_worker_task_slots_available{worker_type=\"ActivityWorker\"})",
@@ -1304,7 +1304,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1380,7 +1380,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(operation, task_queue) (rate(temporal_long_request_total{operation=\"PollWorkflowTaskQueue\"}[$__rate_interval]))",
@@ -1396,7 +1396,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1472,7 +1472,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(operation, task_queue) (rate(temporal_long_request_total{operation=\"PollActivityTaskQueue\"}[$__rate_interval]))",
@@ -1488,7 +1488,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1567,7 +1567,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(operation, status_code) (rate(temporal_long_request_failure_total[$__rate_interval]))",
@@ -1579,7 +1579,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(operation, status_code) (rate(temporal_request_failure_total[$__rate_interval]))",
@@ -1596,7 +1596,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1643,7 +1643,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(worker_type) (temporal_poller_start_total{worker_type=\"WorkflowWorker\"})",
@@ -1659,7 +1659,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1706,7 +1706,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(worker_type) (temporal_poller_start_total{worker_type=\"ActivityWorker\"})",
@@ -1722,7 +1722,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1801,7 +1801,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(operation) (rate(temporal_long_request_total[5s]))",
@@ -1817,7 +1817,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1896,23 +1896,23 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum by(namespace, operation, le) (rate(temporal_long_request_latency_seconds_bucket[5s])))",
+          "expr": "histogram_quantile(0.95, sum by(namespace, operation, le) (rate(temporal_long_request_latency_bucket[5s]))) / 1000",
           "interval": "1s",
           "legendFormat": "{{ namespace }} - {{ operation }}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Long Request Latency P95 - temporal_request_latency_seconds_bucket",
+      "title": "Long Request Latency P95 - temporal_long_request_latency_bucket",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1991,7 +1991,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(operation) (rate(temporal_request_total[$__rate_interval]))",
@@ -2003,7 +2003,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum by(operation) (rate(temporal_long_request_total[$__rate_interval]))",
@@ -2019,7 +2019,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2098,17 +2098,17 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
-          "expr": "histogram_quantile(0.95, sum by(namespace, operation, le) (rate(temporal_request_latency_seconds_bucket[$__rate_interval])))",
+          "expr": "histogram_quantile(0.95, sum by(namespace, operation, le) (rate(temporal_request_latency_bucket[$__rate_interval]))) / 1000",
           "interval": "1s",
           "legendFormat": "{{ namespace }} - {{ operation }}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Request Latency P95 - temporal_request_latency_seconds_bucket",
+      "title": "Request Latency P95 - temporal_request_latency_bucket",
       "type": "timeseries"
     },
     {
@@ -2127,7 +2127,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2203,7 +2203,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "code",
           "expr": "temporal_sticky_cache_size",
@@ -2219,7 +2219,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2296,7 +2296,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "exemplar": false,
@@ -2314,7 +2314,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2391,7 +2391,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "code",
           "expr": "sum by(worker_type, task_queue) (rate(temporal_sticky_cache_total_forced_eviction_total[2s]))",
@@ -2407,7 +2407,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2484,7 +2484,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "exemplar": false,
@@ -2502,7 +2502,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2579,7 +2579,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "code",
           "expr": "sum by(area) (jvm_memory_used_bytes{area=\"heap\"})",
@@ -2591,7 +2591,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "jvm_memory_max_bytes",
@@ -2607,7 +2607,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "$Datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2710,7 +2710,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$Datasource"
           },
           "editorMode": "builder",
           "expr": "sum(temporal_worker_task_slots_available{worker_type=\"LocalActivityWorker\"})",
@@ -2751,7 +2751,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "$Datasource"
         },
         "definition": "label_values(namespace)",
         "hide": 0,
@@ -2796,7 +2796,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "$Datasource"
         },
         "definition": "label_values(task_queue)",
         "hide": 0,
@@ -2825,9 +2825,9 @@
       "200ms",
       "5s",
       "10s",
+      "15s",
       "30s",
       "1m",
-      "15s",
       "30m",
       "1h",
       "2h",
@@ -2835,7 +2835,7 @@
     ]
   },
   "timezone": "",
-  "title": "SDK Metrics (Tao)",
+  "title": "SDK Metrics (TS)",
   "uid": "fsdfgsdfsd",
   "version": 3,
   "weekStart": ""
