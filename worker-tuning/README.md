@@ -28,6 +28,22 @@ npm install
 
 The sample code runs 100 Workflows asynchronously with each scheduling 10 Activities in parallel. Each Activity sleeps for 2 seconds and returns a small payload to simulate a blocking API call. With 1,000 Activities scheduled simultaneously, a typical Worker running on the default settings would struggle to keep up.
 
+## Exercise: Enable Metrics
+
+Before running the tuning examples, you'll need to enable metrics collection:
+
+1. **Enable Worker Metrics Call**: Uncomment the `setupMetrics(8077)` call in `src/worker.ts` to initialize metrics
+
+2. **Enable Metrics Configuration**: Uncomment the `Runtime.install()` block in `src/metrics.ts` to expose Prometheus metrics on port 9464
+
+3. **Enable Prometheus Scraping**: Uncomment the `temporal-worker` job configuration in `config/prometheus.yml` to allow Prometheus to scrape worker metrics
+
+4. **Restart Services**: After making changes, restart the Docker services:
+   ```bash
+   docker compose down
+   docker compose up -d
+   ```
+
 ## Run example
 
 ### Local Temporal Server
@@ -116,7 +132,7 @@ npm run worker -- --activity-pollers=80 --activity-slots=1600
 
 ## Metrics
 
-The application exposes Prometheus metrics on port 8077 at `/metrics` endpoint. Use the provided Grafana dashboard to visualize worker performance metrics.
+Once enabled, the application exposes Prometheus metrics at the `/metrics` endpoint. Use the provided Grafana dashboard to visualize worker performance metrics.
 
 ## Cleanup
 

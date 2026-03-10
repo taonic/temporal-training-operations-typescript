@@ -3,6 +3,7 @@ global:
   evaluation_interval: 1s
 
 scrape_configs:
-  - job_name: 'temporal-worker'
-    static_configs:
-      - targets: ['host.docker.internal:8077']
+  # TODO: Uncomment to enable worker metrics scraping
+  # - job_name: 'temporal-worker'
+  #   static_configs:
+  #     - targets: ['host.docker.internal:8077']

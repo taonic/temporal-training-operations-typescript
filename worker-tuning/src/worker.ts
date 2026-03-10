@@ -21,7 +21,8 @@ async function main(): Promise<void> {
   program.parse();
   const opts = program.opts();
 
-  setupMetrics(8077);
+  // TODO: Uncomment to enable metrics
+  // setupMetrics(8077);
 
   let connection: NativeConnection;
   if (opts.clientCertPath && opts.clientKeyPath) {
