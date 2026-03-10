@@ -1,3 +1,3 @@
-From mcr.microsoft.com/devcontainers/java:0-17
+FROM mcr.microsoft.com/devcontainers/typescript-node:20
 
 RUN mkdir -p /etc/apt/keyrings

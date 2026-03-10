@@ -1,32 +1,34 @@
 // For format details, see https://aka.ms/devcontainer.json.
-// This dev container is for demonstrating Temporal worker (Java SDK) performance tuning with built-in Prometheus and Grafana.
+// This dev container is for demonstrating Temporal worker (TypeScript SDK) performance tuning with built-in Prometheus and Grafana.
 {
 	"name": "Temporal Worker Tuning",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/java:1": {
-			"installGradle": true,
-			"version": "17",
-			"jdkDistro": "ms",
-			"gradleVersion": "latest"
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "20"
 		},
 		"ghcr.io/devcontainers-contrib/features/prometheus:1": {
 			"version": "2.55.0"
 		},
-		"ghcr.io/schlich/devcontainer-features/grafana:1": {}
+		"ghcr.io/schlich/devcontainer-features/grafana:1": {},
+		"ghcr.io/eitsupi/devcontainer-features/temporal-cli:1": {}
 	},
 	"forwardPorts": [
 		9999, // Grafana
 		9090, // Prometheus
-		8077  // Raw SDK metrics. Visit http://<hostname>:8077/metrics
+		8077, // Raw SDK metrics. Visit http://<hostname>:8077/metrics
+		7233, // Temporal server
+		8233  // Temporal UI
 	],
 	"postCreateCommand": {
 		// Ping AWS regions, e.g. #cping -aws
 		"cping": "sudo wget -O /bin/cping https://github.com/c1982/cloudping/releases/download/v1.0/cping_linux_amd64 && sudo chmod +x /bin/cping"
 	},
 	"postStartCommand": {
+		// Start Temporal dev server
+		"temporal": "nohup bash -c 'temporal server start-dev &'",
 		// Start Prometheus
 		"prometheus": "nohup bash -c 'prometheus --config.file=config/prometheus.yaml &'",
 		// Start Grafana
