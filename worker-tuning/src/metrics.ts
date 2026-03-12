@@ -5,7 +5,7 @@ export function setupMetrics(port: number = 8077): void {
   // Runtime.install({
   //   telemetryOptions: {
   //     metrics: {
-  //       prometheus: { bindAddress: '0.0.0.0:9464' },
+  //       prometheus: { bindAddress: `0.0.0.0:${port}` },
   //     },
   //   }
   // });
